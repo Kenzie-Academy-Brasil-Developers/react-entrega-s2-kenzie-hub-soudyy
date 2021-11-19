@@ -7,6 +7,7 @@ export const Table = styled.div`
   width: 100vw;
   height: 100vh;
   .top {
+    color: var(--darkblue);
     margin-top: 20px;
     background-color: var(--honey);
     display: flex;
@@ -19,7 +20,6 @@ export const Table = styled.div`
   }
   figure {
     margin: 10px;
-    border: 2px solid black;
     border-radius: 50%;
     width: 50px;
     height: 50px;

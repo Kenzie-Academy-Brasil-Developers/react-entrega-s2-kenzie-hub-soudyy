@@ -16,6 +16,7 @@ export default createGlobalStyle`
     --black:#0c0d0d;
     --honey:#DDF2EB;
     --gray:gray;
+    --cancel:#C33149;
 }
 
 body{
@@ -47,9 +48,10 @@ a{
     margin: 10px;
     color: var(--black);
   }
-  img{
-      position: absolute;
-      z-index: -1000;
+  body {
+      background-image: url(${back});
+      background-repeat: no-repeat;
+      background-size: 100% 100%;
       width: 100vw;
       height: 100vh;
   }

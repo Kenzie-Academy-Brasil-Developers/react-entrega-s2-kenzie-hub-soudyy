@@ -44,13 +44,12 @@ export const Login = ({ authenticated, setAuthenticated, setData }) => {
       .catch((err) => toast.error("Algo de errado não esta certo"));
   };
 
-  const authentication = () => {
-    if (authenticated === true) {
+  useEffect(() => {
+    const teste = localStorage.getItem("@Hub:token");
+    if (teste) {
+      setAuthenticated(true);
       history.push("/dashboard");
     }
-  };
-  useEffect(() => {
-    authentication();
   }, []);
 
   return (

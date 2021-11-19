@@ -28,7 +28,7 @@ function App() {
         draggable
         pauseOnHover
       />
-      <img src={img} className="bg" alt="background" />
+
       <Router
         authenticated={authenticated}
         setAuthenticated={setAuthenticated}
