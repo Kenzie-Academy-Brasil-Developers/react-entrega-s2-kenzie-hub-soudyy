@@ -4,16 +4,8 @@ import { Router } from "./routes";
 import { ToastContainer } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
 import { useEffect, useState } from "react";
-function App() {
-  const [authenticated, setAuthenticated] = useState(false);
-  const [data, setData] = useState([]);
-  useEffect(() => {
-    const token = JSON.parse(localStorage.getItem("@Hud:token"));
-    if (token) {
-      return setAuthenticated(true);
-    }
-  }, [authenticated]);
 
+function App() {
   return (
     <>
       <GlobalStyle />
@@ -29,12 +21,7 @@ function App() {
         pauseOnHover
       />
 
-      <Router
-        authenticated={authenticated}
-        setAuthenticated={setAuthenticated}
-        data={data}
-        setData={setData}
-      />
+      <Router />
     </>
   );
 }

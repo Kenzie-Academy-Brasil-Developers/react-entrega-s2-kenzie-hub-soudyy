@@ -6,7 +6,7 @@ import { Input } from "../../components/Input";
 import { useForm } from "react-hook-form";
 import { api } from "../../service";
 import { toast } from "react-toastify";
-import { Redirect, useHistory } from "react-router";
+import { useHistory } from "react-router";
 import { Link } from "react-router-dom";
 import { useEffect } from "react/cjs/react.development";
 
@@ -19,6 +19,7 @@ export const Register = ({ authenticated, setAuthenticated }) => {
     email: yup.string().email("e-mail invalido").required("Campo obrigatório"),
     bio: yup.string().required("descreva-se"),
     contact: yup.string().required("deixe algum meio de comunicação"),
+
     course_module: yup.string().required("qual modulo está?"),
   });
 
@@ -102,8 +103,13 @@ export const Register = ({ authenticated, setAuthenticated }) => {
             />
             <div className="buttons">
               <Button type="submit">Cadastrar-se</Button>
-              <Button type="button">
-                <Link to="/">voltar</Link>
+              <Button
+                type="button"
+                onClick={() => {
+                  history.push("/");
+                }}
+              >
+                voltar
               </Button>
             </div>
             <p>

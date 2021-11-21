@@ -5,7 +5,17 @@ import { Home } from "../pages/home";
 import { useEffect, useState } from "react";
 import { Login } from "../pages/login";
 
-export const Router = ({ data, setData, authenticated, setAuthenticated }) => {
+export const Router = () => {
+  const [buttonPopup, setButtonPopup] = useState(false);
+  const [authenticated, setAuthenticated] = useState(false);
+  const [data, setData] = useState([]);
+  console.log("router", buttonPopup);
+  useEffect(() => {
+    const token = JSON.parse(localStorage.getItem("@Hud:token"));
+    if (token) {
+      return setAuthenticated(true);
+    }
+  }, [authenticated]);
   return (
     <Switch>
       <Route exact path="/">
@@ -31,6 +41,8 @@ export const Router = ({ data, setData, authenticated, setAuthenticated }) => {
         <Dashboard
           authenticated={authenticated}
           setAuthenticated={setAuthenticated}
+          buttonPopup={buttonPopup}
+          setButtonPopup={setButtonPopup}
           data={data}
         />
       </Route>

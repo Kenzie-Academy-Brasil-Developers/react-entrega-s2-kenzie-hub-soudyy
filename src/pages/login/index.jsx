@@ -15,7 +15,7 @@ import { useEffect } from "react";
 export const Login = ({ authenticated, setAuthenticated, setData }) => {
   console.log(authenticated);
   const schema = yup.object().shape({
-    email: yup.string().email("").required("Campo obrigatório"),
+    email: yup.string().email("E-mail invalido").required("Campo obrigatório"),
     password: yup
       .string()
       .min(6, "Minimo 6 digitos")
@@ -75,8 +75,13 @@ export const Login = ({ authenticated, setAuthenticated, setData }) => {
             ></Input>
             <div className="buttons">
               <Button type="submit">Login</Button>
-              <Button type="button">
-                <Link to="/">voltar</Link>
+              <Button
+                type="button"
+                onClick={() => {
+                  history.push("/");
+                }}
+              >
+                Voltar
               </Button>
             </div>
             <p>

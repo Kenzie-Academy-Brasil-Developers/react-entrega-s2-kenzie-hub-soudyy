@@ -2,23 +2,30 @@ import { useForm } from "react-hook-form";
 import { InputContainer } from "./styled";
 import { yupResolver } from "@hookform/resolvers/yup";
 import * as yup from "yup";
-import { Button } from "../Button";
-import { ImCancelCircle } from "react-icons/im";
+import { Button, CancelButton } from "../Button";
 
-export const InputPlace = ({ field }) => {
+import { useState } from "react";
+import { api } from "../../service";
+import { toast } from "react-toastify";
+import { useEffect } from "react";
+
+export const InputPlace = ({ selectedField, setButtonPopup, data }) => {
+  const [input, setInput] = useState("");
+  const [technology, setTechnology] = useState([]);
+  const [works, setWorks] = useState([]);
   const level = [
     "Selecione um nivel",
     "Iniciante",
     "Intermediário",
     "Avançado",
   ];
-
+  console.log("input", selectedField);
   const schema = yup.object().shape({
     tech: yup.string().required("nome da Tecnologia"),
     work: yup.string().required("nome do trabalho"),
     desc: yup
       .string()
-      .max(150, "maximo 150 caracteres")
+      .max(3, "maximo 150 caracteres")
       .required("nome do trabalho"),
     level: yup.string().required("Escolha um dos itens"),
   });
@@ -28,29 +35,64 @@ export const InputPlace = ({ field }) => {
     formState: { errors },
   } = useForm({ resolver: yupResolver(schema) });
 
-  const submitFunction = () => {};
+  const [token] = useState(
+    JSON.parse(localStorage.getItem("@Hud:token")) || ""
+  );
+  const onSubmitFunction = (data) => {
+    console.log(data);
+    console.log(selectedField);
+    console.log("to aqui");
+    api
+      .post(`/users/${selectedField}`, data)
+      .then((response) => {
+        setButtonPopup(false);
+        console.log(response.data);
+        setTechnology(...technology, response.data);
 
-  return field === "techs" ? (
+        toast.success("Card Criado com sucesso");
+      })
+      .catch((err) => {
+        console.log(err);
+        toast.error("Algo de errado não está certo");
+      });
+  };
+  function warning() {
+    toast.error("Ainda estou trabalhando nisso");
+  }
+  function loadTechnology() {
+    api
+      .get(`/users/${data.user.id}`, {
+        headers: { Authorization: `Bearer ${token}` },
+        params: { completed: false },
+      })
+      .then((response) => {})
+      .catch((err) => console.log(err));
+  }
+  //const submitFunction = () => {};
+  useEffect(() => {
+    console.log(technology);
+  }, [technology]);
+  return selectedField === "techs" ? (
     <InputContainer>
       <div className="container">
-        <Button className="cancel" onClick={() => {}}>
-          <ImCancelCircle />
-        </Button>
-        <form onSubmit={handleSubmit()}>
+        <CancelButton setButtonPopup={setButtonPopup} />
+
+        <form onSubmit={handleSubmit(onSubmitFunction)}>
           <h1>Tecnologias</h1>
           <input
             register={register}
             error={errors.tech?.message}
             type="text"
             placeholder="Nome da tecnologia"
+            onChange={handleSubmit()}
           />
           <select {...register("level")}>
             {level.map((option) => (
               <option key={option}>{option}</option>
             ))}
           </select>
-          <Button className="set" type="submit">
-            Pronto
+          <Button className="set" type="submit" onClick={() => warning()}>
+            Adicionar
           </Button>
         </form>
       </div>
@@ -58,10 +100,9 @@ export const InputPlace = ({ field }) => {
   ) : (
     <InputContainer>
       <div className="container">
-        <Button className="cancel" onClick={() => {}}>
-          <ImCancelCircle />
-        </Button>
-        <form>
+        <CancelButton setButtonPopup={setButtonPopup} />
+
+        <form onSubmit={handleSubmit(onSubmitFunction)}>
           <h1>Trabalhos</h1>
           <div>
             <input
@@ -69,6 +110,7 @@ export const InputPlace = ({ field }) => {
               error={errors.work?.message}
               type="text"
               placeholder="Nome do trabalho"
+              onChange={handleSubmit()}
             />
             <input
               register={register}
@@ -76,10 +118,11 @@ export const InputPlace = ({ field }) => {
               className="desc"
               type="text"
               placeholder="descrição"
+              onChange={input}
             />
           </div>
-          <Button className="set" type="submit">
-            Pronto
+          <Button className="set" type="submit" onClick={() => warning()}>
+            Adicionar
           </Button>
         </form>
       </div>

@@ -19,7 +19,7 @@ export const Home = ({ authenticated }) => {
     <Container>
       <Content>
         <h1>HackHub</h1>
-        <p>É hora de demonstrar conhecimento</p>
+        <p>É hora de demonstrar conhecimento (Mas ta dificil)</p>
         <div>
           <Button onClick={() => handleNavigation("/register")}>
             Cadastre-se

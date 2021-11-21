@@ -1,32 +1,19 @@
 import styled from "styled-components";
 
 export const InputContainer = styled.div`
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  background-color: rgba(0, 0, 0, 0.5);
-  position: absolute;
+  position: fixed;
   top: 0;
   bottom: 0;
   left: 0;
   right: 0;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background-color: rgba(0, 0, 0, 0.5);
+  width: 100vw;
+  height: 100vh;
   color: var(--darkblue);
-  .cancel {
-    margin: 10px 10px 0 0;
-    align-self: flex-end;
-    border-radius: 50%;
-    width: 30px;
-    height: 30px;
-    transition: 0.5s;
-    :hover {
-      box-shadow: 0 0 20px var(--cancel);
-    }
-    svg {
-      color: var(--cancel);
-      width: 100%;
-      height: 100%;
-    }
-  }
+
   .set {
     background-color: var(--darkblue);
     color: var(--honey);

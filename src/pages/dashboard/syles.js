@@ -72,15 +72,12 @@ export const CardHolder = styled.section`
   }
   .myTech {
     display: flex;
-    justify-content: space-around;
     color: var(--darkblue);
     width: 30vw;
     background-color: var(--honey);
   }
   .myWorks {
     display: flex;
-
-    justify-content: space-around;
     color: var(--darkblue);
     width: 25vw;
     background-color: var(--honey);

@@ -17,6 +17,7 @@ export default createGlobalStyle`
     --honey:#DDF2EB;
     --gray:gray;
     --cancel:#C33149;
+    --card:#AAC0AF;
 }
 
 body{
