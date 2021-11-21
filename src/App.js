@@ -1,9 +1,7 @@
-import img from "../src/assets/img/backRegister.jpg";
 import GlobalStyle from "./styles/global";
 import { Router } from "./routes";
 import { ToastContainer } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
-import { useEffect, useState } from "react";
 
 function App() {
   return (
