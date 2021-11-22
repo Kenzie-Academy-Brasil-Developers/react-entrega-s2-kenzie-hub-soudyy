@@ -16,8 +16,8 @@ export const UserCard = ({ authentication, data }) => {
           <img src={img} alt="" />
         </figure>
         <div className="userName">
-          <h3>{data.name}</h3>
-          <span>{data.course_module}</span>
+          {/* <h3>{data.name}</h3>
+          <span>{data.course_module}</span> */}
         </div>
       </header>
       <div className="contact">
@@ -26,7 +26,7 @@ export const UserCard = ({ authentication, data }) => {
         </div>
         <div className="infos">
           <h5>Ligar agora </h5>
-          <p>{data.contact}</p>
+          {/* <p>{data.contact}</p> */}
         </div>
       </div>
       <div className="contact">
@@ -35,7 +35,7 @@ export const UserCard = ({ authentication, data }) => {
         </div>
         <div className="infos">
           <h5>Enviar e-mail </h5>
-          <p>{data.email}</p>
+          {/* <p>{data.email}</p> */}
         </div>
       </div>
       <Button onClick={() => authentication()}>Logoff</Button>

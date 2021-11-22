@@ -8,7 +8,7 @@ import { api } from "../../service";
 import { toast } from "react-toastify";
 import { useHistory } from "react-router";
 import { Link } from "react-router-dom";
-import { useEffect } from "react/cjs/react.development";
+import { useEffect } from "react";
 
 export const Register = ({ authenticated, setAuthenticated }) => {
   const history = useHistory();

@@ -1,8 +1,7 @@
 import { Button } from "../../components/Button";
 import { Container, Content } from "./styles";
 import { useHistory } from "react-router-dom";
-
-import { useEffect } from "react/cjs/react.development";
+import { useEffect } from "react";
 
 export const Home = ({ authenticated }) => {
   console.log(authenticated);

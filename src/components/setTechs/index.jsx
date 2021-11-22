@@ -25,7 +25,7 @@ export const InputPlace = ({ selectedField, setButtonPopup, data }) => {
     work: yup.string().required("nome do trabalho"),
     desc: yup
       .string()
-      .max(3, "maximo 150 caracteres")
+      .max(100, "maximo 100 caracteres")
       .required("nome do trabalho"),
     level: yup.string().required("Escolha um dos itens"),
   });
@@ -38,12 +38,15 @@ export const InputPlace = ({ selectedField, setButtonPopup, data }) => {
   const [token] = useState(
     JSON.parse(localStorage.getItem("@Hud:token")) || ""
   );
+  console.log("input", input);
   const onSubmitFunction = (data) => {
-    console.log(data);
-    console.log(selectedField);
+    console.log("data", data);
+    console.log("Escolha", selectedField);
     console.log("to aqui");
     api
-      .post(`/users/${selectedField}`, data)
+      .post(`/users/${selectedField}`, data, {
+        headers: { Authorization: `Bearer ${token}` },
+      })
       .then((response) => {
         setButtonPopup(false);
         console.log(response.data);
@@ -61,7 +64,7 @@ export const InputPlace = ({ selectedField, setButtonPopup, data }) => {
   }
   function loadTechnology() {
     api
-      .get(`/users/${data.user.id}`, {
+      .get(`/users/:${data.user.id}`, {
         headers: { Authorization: `Bearer ${token}` },
         params: { completed: false },
       })
@@ -80,18 +83,21 @@ export const InputPlace = ({ selectedField, setButtonPopup, data }) => {
         <form onSubmit={handleSubmit(onSubmitFunction)}>
           <h1>Tecnologias</h1>
           <input
-            register={register}
+            {...register("tech")}
             error={errors.tech?.message}
             type="text"
             placeholder="Nome da tecnologia"
-            onChange={handleSubmit()}
+            value={input}
+            onChange={(evt) => setInput(evt.target.value)}
           />
           <select {...register("level")}>
             {level.map((option) => (
-              <option key={option}>{option}</option>
+              <option value={option} key={option}>
+                {option}
+              </option>
             ))}
           </select>
-          <Button className="set" type="submit" onClick={() => warning()}>
+          <Button className="set" type="submit">
             Adicionar
           </Button>
         </form>
@@ -106,19 +112,21 @@ export const InputPlace = ({ selectedField, setButtonPopup, data }) => {
           <h1>Trabalhos</h1>
           <div>
             <input
-              register={register}
+              {...register("work")}
               error={errors.work?.message}
               type="text"
               placeholder="Nome do trabalho"
-              onChange={handleSubmit()}
+              value={input}
+              onChange={(evt) => setInput(evt.target.value)}
             />
             <input
-              register={register}
+              {...register("desc")}
               error={errors.desc?.message}
               className="desc"
               type="text"
               placeholder="descrição"
-              onChange={input}
+              value={input}
+              onChange={(evt) => setInput(evt.target.value)}
             />
           </div>
           <Button className="set" type="submit" onClick={() => warning()}>
