@@ -9,7 +9,6 @@ export const Router = () => {
   const [buttonPopup, setButtonPopup] = useState(false);
   const [authenticated, setAuthenticated] = useState(false);
   const [data, setData] = useState([]);
-  console.log("router", buttonPopup);
   useEffect(() => {
     const token = JSON.parse(localStorage.getItem("@Hud:token"));
     if (token) {

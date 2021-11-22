@@ -13,7 +13,6 @@ import { Div } from "../registration/styles";
 import { useEffect } from "react";
 
 export const Login = ({ authenticated, setAuthenticated, setData }) => {
-  console.log(authenticated);
   const schema = yup.object().shape({
     email: yup.string().email("E-mail invalido").required("Campo obrigatório"),
     password: yup
@@ -34,9 +33,10 @@ export const Login = ({ authenticated, setAuthenticated, setData }) => {
     api
       .post("/sessions", data)
       .then((response) => {
-        const { token } = response.data;
+        const { token, user } = response.data;
         setData(response.data);
-        localStorage.setItem("@Hub:token", JSON.stringify(token));
+        localStorage.setItem("@Hud:token", JSON.stringify(token));
+        localStorage.setItem("@Hud:user", JSON.stringify(user));
         setAuthenticated(true);
         history.push("/dashboard");
       })

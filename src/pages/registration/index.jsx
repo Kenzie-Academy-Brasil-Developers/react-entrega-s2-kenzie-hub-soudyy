@@ -45,7 +45,7 @@ export const Register = ({ authenticated, setAuthenticated }) => {
     if (authenticated === true) {
       history.push("/dashboard");
     }
-  }, []);
+  }, [authenticated]);
   const options = [
     "Primeiro módulo (Introdução ao Frontend)",
     "Segundo módulo (Frontend Avançado)",

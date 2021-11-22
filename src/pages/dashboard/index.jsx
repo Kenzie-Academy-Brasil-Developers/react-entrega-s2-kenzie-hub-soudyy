@@ -1,9 +1,7 @@
 import { useHistory } from "react-router";
 import img from "../../assets/img/profpic.jpg";
 import { useEffect, useState } from "react";
-//import { api } from "../../service";
 import { CardHolder, Table } from "./syles";
-//import { toast } from "react-toastify";
 import { TechCard, UserCard, WorkCard } from "../../components/TechCard";
 
 export const Dashboard = ({

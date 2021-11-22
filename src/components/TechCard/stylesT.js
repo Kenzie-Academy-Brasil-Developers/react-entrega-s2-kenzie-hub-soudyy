@@ -1,4 +1,4 @@
-import styled from "styled-components";
+import styled, { keyframes } from "styled-components";
 
 export const Container = styled.div`
   .contact {
@@ -41,11 +41,17 @@ export const Container = styled.div`
     margin-bottom: 10px;
   }
 `;
+
+const appear = keyframes`
+0% {  transform: translateX(500px); }
+100% {  transform: translateX(0); }
+`;
 export const BoxItens = styled.div`
   .myTech,
   .myWorks {
     display: flex;
     background: black;
+    animation: ${appear};
   }
   display: flex;
   flex-direction: column;
@@ -53,5 +59,11 @@ export const BoxItens = styled.div`
     display: flex;
     align-items: center;
     justify-content: center;
+    padding-bottom: 5px;
+  }
+  .scroll {
+    overflow-y: scroll;
+    overflow-x: hidden;
+    max-height: 500px;
   }
 `;
