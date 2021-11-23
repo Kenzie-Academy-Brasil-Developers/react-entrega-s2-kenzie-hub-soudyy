@@ -3,7 +3,6 @@ import { InputContainer } from "./styled";
 import { yupResolver } from "@hookform/resolvers/yup";
 import * as yup from "yup";
 import { Button, CancelButton } from "../Button";
-
 import { useState } from "react";
 import { api } from "../../service";
 import { toast } from "react-toastify";
@@ -15,8 +14,8 @@ export const WorkInput = ({
   buttonPopup,
   works,
   setWorks,
+  loadWorks,
 }) => {
-  console.log("input", selectedField);
   const schema = yup.object().shape({
     title: yup.string().required("nome do trabalho"),
     description: yup
@@ -42,6 +41,7 @@ export const WorkInput = ({
         params: { completed: false },
       })
       .then((_) => {
+        loadWorks();
         setButtonPopup(false);
         toast.success("Card Criado com sucesso");
       })
@@ -52,16 +52,6 @@ export const WorkInput = ({
   useEffect(() => {
     setWorks(JSON.parse(localStorage.getItem("@Hud:user")).works);
   }, [buttonPopup]);
-  console.log("Workando", works);
-  function loadWorks() {
-    api
-      .get(`/users/${JSON.parse(localStorage.getItem("@Hud:user")).id}`)
-      .then((response) => {
-        localStorage.setItem("@Hud:user", JSON.stringify(response.data));
-        setWorks(response.data.works);
-      });
-    setButtonPopup(false);
-  }
 
   return selectedField === "works" ? (
     <InputContainer>
@@ -92,7 +82,7 @@ export const WorkInput = ({
               placeholder="Link"
             />
           </div>
-          <Button className="set" type="submit" onClick={loadWorks}>
+          <Button className="set" type="submit">
             Adicionar
           </Button>
         </form>

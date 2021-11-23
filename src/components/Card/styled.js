@@ -36,7 +36,7 @@ export const CreateCard = styled.div`
     background-color: transparent;
     transition: 0.5s;
     :hover {
-      box-shadow: 0px 0px 20px red;
+      text-shadow: 0px 0px 10px red;
       color: red;
     }
   }

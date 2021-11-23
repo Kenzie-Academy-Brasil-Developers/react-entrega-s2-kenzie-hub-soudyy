@@ -9,6 +9,12 @@ export const Dashboard = ({
   data,
   buttonPopup,
   setButtonPopup,
+  works,
+  setWorks,
+  loadWorks,
+  technology,
+  setTechnology,
+  loadTechs,
 }) => {
   console.log(data);
   const history = useHistory();
@@ -37,14 +43,20 @@ export const Dashboard = ({
       </header>
       <CardHolder className="cardsSection">
         <TechCard
-          data={data}
+          technology={technology}
+          setTechnology={setTechnology}
+          loadTechs={loadTechs}
+          data={data.user}
           selectedField={selectedField}
           setSelectedField={setSelectedField}
           setButtonPopup={setButtonPopup}
           buttonPopup={buttonPopup}
         />
         <WorkCard
-          data={data}
+          works={works}
+          setWorks={setWorks}
+          loadWorks={loadWorks}
+          data={data.user}
           selectedField={selectedField}
           setSelectedField={setSelectedField}
           setButtonPopup={setButtonPopup}

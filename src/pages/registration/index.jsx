@@ -12,15 +12,20 @@ import { useEffect } from "react";
 
 export const Register = ({ authenticated, setAuthenticated }) => {
   const history = useHistory();
-  console.log(authenticated);
   const schema = yup.object().shape({
-    name: yup.string().required("Campo obrigatório"),
-    password: yup.string().min(6, "minimo 6 digitos").required("ta errado"),
-    email: yup.string().email("e-mail invalido").required("Campo obrigatório"),
-    bio: yup.string().required("descreva-se"),
-    contact: yup.string().required("deixe algum meio de comunicação"),
+    name: yup.string().required("Nome: Campo obrigatório"),
+    password: yup
+      .string()
+      .min(6, "minimo 6 digitos")
+      .required("senha: campo obrigatorio"),
+    email: yup
+      .string()
+      .email("E-mail invalido")
+      .required("E-mail: Campo obrigatório"),
+    bio: yup.string().required("Bio: obrigatorio"),
+    contact: yup.string().required("Contact: deixe algum meio de comunicação"),
 
-    course_module: yup.string().required("qual modulo está?"),
+    course_module: yup.string().required("Curso: qual modulo está?"),
   });
 
   const {
@@ -37,7 +42,6 @@ export const Register = ({ authenticated, setAuthenticated }) => {
         setAuthenticated(true);
       })
       .catch((err) => {
-        console.log(err);
         toast.error("Algo de errado não está certo");
       });
   };
@@ -63,14 +67,14 @@ export const Register = ({ authenticated, setAuthenticated }) => {
               name="name"
               label="nome"
               placeholder="Seu nome"
-              error={errors.name?.message}
+              error={toast.error(errors.name?.message)}
             />
             <Input
               register={register}
               name="email"
               label="Email"
               placeholder="Seu Email"
-              error={errors.email?.message}
+              error={toast.error(errors.email?.message)}
             />
             <Input
               register={register}
@@ -78,7 +82,7 @@ export const Register = ({ authenticated, setAuthenticated }) => {
               type="text"
               label="biografia"
               placeholder="Diga um pouco sobre você"
-              error={errors.bio?.message}
+              error={toast.error(errors.bio?.message)}
             />
             <Input
               register={register}
@@ -86,20 +90,21 @@ export const Register = ({ authenticated, setAuthenticated }) => {
               label="contato"
               placeholder="Seu contato"
               error={errors.contact?.message}
+              error={toast.error(errors.contact?.message)}
             />
             <select {...register("course_module")}>
               {options.map((option) => (
                 <option key={option}>{option}</option>
               ))}
             </select>
-            <p>{errors.course_module?.message}</p>
+            {toast.error(errors.course_module?.message)}
             <Input
               register={register}
               name="password"
               label="senha"
               type="password"
               placeholder="senha"
-              error={errors.password?.message}
+              error={toast.error(errors.password?.message)}
             />
             <div className="buttons">
               <Button type="submit">Cadastrar-se</Button>

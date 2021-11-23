@@ -4,7 +4,6 @@ import { useHistory } from "react-router-dom";
 import { useEffect } from "react";
 
 export const Home = ({ authenticated }) => {
-  console.log(authenticated);
   const history = useHistory();
   const handleNavigation = (path) => {
     return history.push(path);

@@ -3,7 +3,6 @@ import { InputContainer } from "./styled";
 import { yupResolver } from "@hookform/resolvers/yup";
 import * as yup from "yup";
 import { Button, CancelButton } from "../Button";
-
 import { useState } from "react";
 import { api } from "../../service";
 import { toast } from "react-toastify";
@@ -15,6 +14,7 @@ export const TechInput = ({
   buttonPopup,
   technology,
   setTechnology,
+  loadTechs,
 }) => {
   const level = [
     "Selecione um nivel",
@@ -22,7 +22,7 @@ export const TechInput = ({
     "Intermediário",
     "Avançado",
   ];
-  console.log("input", selectedField);
+
   const schema = yup.object().shape({
     title: yup.string().required("nome da Tecnologia"),
     status: yup.string().required("Escolha um dos itens"),
@@ -43,7 +43,8 @@ export const TechInput = ({
         headers: { Authorization: `Bearer ${token}` },
         params: { completed: false },
       })
-      .then((_) => {
+      .then((response) => {
+        loadTechs();
         setButtonPopup(false);
         toast.success("Card Criado com sucesso");
       })
@@ -56,17 +57,6 @@ export const TechInput = ({
     setTechnology(JSON.parse(localStorage.getItem("@Hud:user")).techs);
   }, [buttonPopup]);
 
-  function loadTechnology() {
-    api
-      .get(`/users/${JSON.parse(localStorage.getItem("@Hud:user")).id}`)
-      .then((response) => {
-        localStorage.setItem("@Hud:user", JSON.stringify(response.data));
-        setTechnology(response.data.techs);
-      });
-    setButtonPopup(false);
-  }
-
-  console.log("tecnologia", technology);
   return selectedField === "techs" ? (
     <InputContainer>
       <div className="container">
@@ -87,7 +77,7 @@ export const TechInput = ({
               </option>
             ))}
           </select>
-          <Button className="set" type="submit" onClick={loadTechnology}>
+          <Button className="set" type="submit">
             Adicionar
           </Button>
         </form>

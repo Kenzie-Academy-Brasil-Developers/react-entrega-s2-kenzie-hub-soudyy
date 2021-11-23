@@ -55,7 +55,7 @@ export const CardHolder = styled.section`
     border-radius: 10px 10px 0 0;
     align-items: center;
     background-color: var(--darkblue);
-    width: 20vw;
+    width: 100%;
     color: var(--honey);
   }
   .userInfo {
@@ -69,6 +69,7 @@ export const CardHolder = styled.section`
     margin-left: 20px;
     display: flex;
     flex-direction: column;
+    width: 10vw;
   }
   .myTech {
     display: flex;

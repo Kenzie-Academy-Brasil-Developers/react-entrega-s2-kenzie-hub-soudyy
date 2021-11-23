@@ -4,46 +4,47 @@ import { Popup } from "reactjs-popup";
 import { TechInput } from "../setTechs";
 import { FiSmartphone } from "react-icons/fi";
 import { AiOutlineMail } from "react-icons/ai";
-import { BoxItens, Container } from "./stylesT";
+import { BoxItens, Container, MyTechs, MyWorks } from "./stylesT";
 import { TechCards, WorkCards } from "../Card";
 import { WorkInput } from "../setWorks";
 import { useState } from "react";
 import { api } from "../../service";
-import { useEffect } from "react";
 import { toast } from "react-toastify";
 
 export const UserCard = ({ authentication, data }) => {
   return (
-    <Container className="userInfo">
-      <header>
-        <figure>
-          <img src={img} alt="" />
-        </figure>
-        <div className="userName">
-          <h3>{data.name}</h3>
-          <span>{data.course_module}</span>
+    <div>
+      <Container className="userInfo">
+        <header>
+          <figure>
+            <img src={img} alt="" />
+          </figure>
+          <div className="userName">
+            <h3>{data.name}</h3>
+            <span>{data.course_module}</span>
+          </div>
+        </header>
+        <div className="contact">
+          <div className="icon">
+            <FiSmartphone />
+          </div>
+          <div className="infos">
+            <h5>Ligar agora </h5>
+            <p>{data.contact}</p>
+          </div>
         </div>
-      </header>
-      <div className="contact">
-        <div className="icon">
-          <FiSmartphone />
+        <div className="contact">
+          <div className="icon">
+            <AiOutlineMail />
+          </div>
+          <div className="infos">
+            <h5>Enviar e-mail </h5>
+            <p>{data.email}</p>
+          </div>
         </div>
-        <div className="infos">
-          <h5>Ligar agora </h5>
-          <p>{data.contact}</p>
-        </div>
-      </div>
-      <div className="contact">
-        <div className="icon">
-          <AiOutlineMail />
-        </div>
-        <div className="infos">
-          <h5>Enviar e-mail </h5>
-          <p>{data.email}</p>
-        </div>
-      </div>
-      <Button onClick={() => authentication()}>Logoff</Button>
-    </Container>
+        <Button onClick={() => authentication()}>Logoff</Button>
+      </Container>
+    </div>
   );
 };
 
@@ -53,17 +54,26 @@ export const TechCard = ({
   buttonPopup,
   setButtonPopup,
   data,
+  loadTechs,
+  technology,
+  setTechnology,
 }) => {
-  const handleDelete = () => {
-    technology.find((item) => item.id);
+  const [token] = useState(
+    JSON.parse(localStorage.getItem("@Hud:token")) || ""
+  );
+  const handleDelete = (selected) => {
+    api
+      .delete(`/users/techs/${selected}`, {
+        headers: { Authorization: `Bearer ${token}` },
+      })
+      .then((_) => {
+        loadTechs();
+        toast.success("Tecnologia removida com sucesso");
+      });
   };
-  const remove = () => {
-    api.delete(`/users/techs/:${handleDelete}`);
-  };
-  console.log("tecch", buttonPopup);
-  const [technology, setTechnology] = useState([]);
+
   return (
-    <>
+    <MyTechs>
       <BoxItens className="myTech">
         <div>
           <div className="header">
@@ -82,6 +92,7 @@ export const TechCard = ({
                   <TechInput
                     technology={technology}
                     setTechnology={setTechnology}
+                    loadTechs={loadTechs}
                     buttonPopup={buttonPopup}
                     selectedField={selectedField}
                     setButtonPopup={setButtonPopup}
@@ -92,11 +103,11 @@ export const TechCard = ({
             ></Popup>
           </div>
           <div className="scroll">
-            <TechCards remove={remove} technology={technology} />
+            <TechCards handleDelete={handleDelete} technology={technology} />
           </div>
         </div>
       </BoxItens>
-    </>
+    </MyTechs>
   );
 };
 
@@ -106,37 +117,25 @@ export const WorkCard = ({
   buttonPopup,
   setButtonPopup,
   data,
+  works,
+  setWorks,
+  loadWorks,
 }) => {
-  const [teste, setTeste] = useState("");
-  const [works, setWorks] = useState([]);
-
   const [token] = useState(
     JSON.parse(localStorage.getItem("@Hud:token")) || ""
   );
   const handleDelete = (selected) => {
-    console.log("selecionad", selected);
-    setTeste(works.find((item) => selected === item.title));
-  };
-  useEffect(() => {
-    console.log("effect", teste.title);
-    remove();
-  }, [handleDelete]);
-  const remove = () => {
     api
-      .delete(
-        `/users/works/${
-          (JSON.parse(localStorage.getItem("@Hud:user")), teste)
-        }`,
-        { headers: { Authorization: `Bearer ${token}` } }
-      )
+      .delete(`/users/works/${selected}`, {
+        headers: { Authorization: `Bearer ${token}` },
+      })
       .then((_) => {
-        // setCardTech(false)
-        // requisicao()
-        toast.success("Tecnologia removida com sucesso");
+        loadWorks();
+        toast.success("trabalho removido com sucesso");
       });
   };
   return (
-    <>
+    <MyWorks>
       <BoxItens className="myWorks">
         <div className="header">
           <h1>Meus trabalhos</h1>
@@ -153,6 +152,7 @@ export const WorkCard = ({
               buttonPopup === true ? (
                 <WorkInput
                   works={works}
+                  loadWorks={loadWorks}
                   setWorks={setWorks}
                   buttonPopup={buttonPopup}
                   selectedField={selectedField}
@@ -168,6 +168,6 @@ export const WorkCard = ({
           </div>
         </div>
       </BoxItens>
-    </>
+    </MyWorks>
   );
 };

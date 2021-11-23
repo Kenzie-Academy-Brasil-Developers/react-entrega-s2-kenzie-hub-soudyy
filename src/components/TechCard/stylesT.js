@@ -1,6 +1,16 @@
 import styled, { keyframes } from "styled-components";
 
+const appearUser = keyframes`
+from {  transform: translateX(1000px)}
+to {  transform: translateX(0px)}
+`;
 export const Container = styled.div`
+  animation: ${appearUser} 1s;
+  padding-bottom: 5px;
+  .userInfo header {
+    width: 100%;
+    margin: 0;
+  }
   .contact {
     display: flex;
     align-items: center;
@@ -42,16 +52,29 @@ export const Container = styled.div`
   }
 `;
 
+const appearTech = keyframes`
+from {  transform: translateX(-1000px)}
+to {  transform: translateX(0px)}
+`;
 const appear = keyframes`
-0% {  transform: translateX(500px); }
-100% {  transform: translateX(0); }
+from {  transform: translateX(-1000px)}
+to {  transform: translateX(0px)}
+`;
+const appearWork = keyframes`
+from {  transform: translateY(1000px)}
+to {  transform: translateX(0px)}
+`;
+export const MyTechs = styled.div`
+  animation: ${appearTech} 1s; ;
+`;
+export const MyWorks = styled.div`
+  animation: ${appearWork} 1s;
 `;
 export const BoxItens = styled.div`
   .myTech,
   .myWorks {
     display: flex;
     background: black;
-    animation: ${appear};
   }
   display: flex;
   flex-direction: column;
