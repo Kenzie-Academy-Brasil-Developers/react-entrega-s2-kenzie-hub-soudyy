@@ -41,6 +41,13 @@ export const Div = styled.div`
   align-items: center;
   justify-content: center;
   height: 100vh;
+  .courseSelect {
+    display: flex;
+    background-color: black;
+    width: 50px;
+    height: 50px;
+    font-size: 2rem;
+  }
 `;
 
 const appear = keyframes``;

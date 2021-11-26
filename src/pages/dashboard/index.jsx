@@ -3,6 +3,7 @@ import img from "../../assets/img/profpic.jpg";
 import { useEffect, useState } from "react";
 import { CardHolder, Table } from "./syles";
 import { TechCard, UserCard, WorkCard } from "../../components/TechCard";
+import { api } from "../../service";
 
 export const Dashboard = ({
   setAuthenticated,
@@ -16,7 +17,6 @@ export const Dashboard = ({
   setTechnology,
   loadTechs,
 }) => {
-  console.log(data);
   const history = useHistory();
   const [selectedField, setSelectedField] = useState("");
 
@@ -25,6 +25,7 @@ export const Dashboard = ({
     setAuthenticated(false);
     history.push("/login");
   };
+
   useEffect(() => {
     if (data === []) {
       localStorage.clear();

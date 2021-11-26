@@ -26,7 +26,6 @@ export const Router = () => {
         localStorage.setItem("@Hud:user", JSON.stringify(response.data));
         setWorks(response.data.works);
       });
-    setButtonPopup(false);
   }
   function loadTechs() {
     api
@@ -35,7 +34,6 @@ export const Router = () => {
         localStorage.setItem("@Hud:user", JSON.stringify(response.data));
         setTechnology(response.data.techs);
       });
-    setButtonPopup(false);
   }
   return (
     <Switch>
@@ -50,6 +48,8 @@ export const Router = () => {
           setAuthenticated={setAuthenticated}
           authenticated={authenticated}
           setData={setData}
+          loadTechs={loadTechs}
+          loadWorks={loadWorks}
         />
       </Route>
       <Route path="/register">

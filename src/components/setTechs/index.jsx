@@ -44,7 +44,6 @@ export const TechInput = ({
         params: { completed: false },
       })
       .then((response) => {
-        loadTechs();
         setButtonPopup(false);
         toast.success("Card Criado com sucesso");
       })
@@ -52,7 +51,9 @@ export const TechInput = ({
         toast.error("Algo de errado não está certo");
       });
   };
-
+  useEffect(() => {
+    loadTechs();
+  }, []);
   useEffect(() => {
     setTechnology(JSON.parse(localStorage.getItem("@Hud:user")).techs);
   }, [buttonPopup]);

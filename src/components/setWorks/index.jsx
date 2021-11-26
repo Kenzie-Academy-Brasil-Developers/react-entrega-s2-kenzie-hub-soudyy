@@ -50,6 +50,9 @@ export const WorkInput = ({
       });
   };
   useEffect(() => {
+    loadWorks();
+  }, []);
+  useEffect(() => {
     setWorks(JSON.parse(localStorage.getItem("@Hud:user")).works);
   }, [buttonPopup]);
 
